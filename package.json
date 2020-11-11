@@ -1,0 +1,21 @@
+{
+  "name": "MMM-FTV",
+  "version": "1.0.0",
+  "description": "Images Slide show",
+  "main": "MMM-FTV.js",
+  "keywords": [
+    "image",
+    "photo",
+    "magicmirror"
+  ],
+  "author": "bugs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bugsounet/MMM-FTV/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bugsounet/MMM-FTV"
+  },
+  "homepage": "https://github.com/bugsounet/MMM-FTV"
+}
