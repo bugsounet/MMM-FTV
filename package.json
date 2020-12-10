@@ -1,8 +1,11 @@
 {
   "name": "MMM-FTV",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Images Slide show",
   "main": "MMM-FTV.js",
+  "scripts": {
+    "preinstall": "sudo apt-get install imagemagick graphicsmagick -y"
+  },
   "keywords": [
     "image",
     "photo",
