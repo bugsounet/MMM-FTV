@@ -15,6 +15,7 @@
 
 var NodeHelper = require("node_helper");
 var fs = require("fs");
+const gm = require('gm');
 
 FTV = (...args) => { /* do nothing */ }
 
@@ -29,14 +30,56 @@ module.exports = NodeHelper.create({
     this.FileExtensions = ['bmp','jpg','png']
   },
 
-  initialize: function () {
+  initialize: async function () {
     this.imageList = this.getImageList()
     FTV("Nb Images found:", this.imageList.length)
-    if (this.imageList.length) this.delayedDisplay()
-    else {
+    if (this.imageList.length) {
+      FTV("Check")
+      await this.checkSize()
+      FTV("check Done")
+      this.delayedDisplay()
+    } else {
       this.sendSocketNotification("EMPTY")
       this.reScan()
     }
+  },
+
+  checkSize: function() {
+    let data= []
+    this.imageList.forEach(image => {
+      data.push(this.getSize(image))
+    })
+    return Promise.all(data)
+  },
+
+  getSize: function(image) {
+    return new Promise((resolve, reject) => {
+      gm(image.path +"/" + image.filename)
+        .size(async (err, value) => {
+          if (err) {
+            console.log(err)
+            return resolve()
+          }
+        if ((value.width != 1920) || (value.height != 1080)) {
+          FTV("backup " + image.filename, "...")
+          fs.copyFileSync(image.path +"/" + image.filename, image.path +"/backupBeforeResize/" + image.filename)
+          FTV("Resizing...")
+          gm(image.path +"/" + image.filename)
+            .resize(1920,1080, "!")
+            .write(image.path +"/" + image.filename, err => {
+              if (err) {
+                FTV("error!!!" , err)
+                resolve()
+              }
+              else {
+                FTV("Resize Done:", image.filename)
+                resolve()
+              }
+            })
+        }
+        else resolve()
+      })
+    })
   },
 
   // get images list
@@ -105,8 +148,7 @@ module.exports = NodeHelper.create({
       if (this.imageIndex > this.imageList.length -1) {
         FTV("All images complete.")
         this.imageIndex = 0
-        this.imageList = this.getImageList()
-        this.delayedDisplay()
+        this.initialize()
       }
       else this.delayedDisplay()
     }, this.config.duration)

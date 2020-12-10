@@ -17,5 +17,8 @@
     "type": "git",
     "url": "https://github.com/bugsounet/MMM-FTV"
   },
-  "homepage": "https://github.com/bugsounet/MMM-FTV"
+  "homepage": "https://github.com/bugsounet/MMM-FTV",
+  "dependencies": {
+    "gm": "^1.23.1"
+  }
 }
