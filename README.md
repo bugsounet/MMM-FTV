@@ -61,3 +61,7 @@ It's used in my job for creating a slideshow of my entreprise's news
 * Picture format must be: `bmp`,`jpg` or `png`
 * Natural size of the picture: 1920X1080
 * If not natural size: the picture will be resized for fullscreen (no ratio) and origianl file was save in `backupBeforeResize` directory
+
+## Support and helping
+
+Support is now on [the 4th Party Modules Forum](http://forum.bugsounet.fr)
