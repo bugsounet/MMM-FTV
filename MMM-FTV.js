@@ -19,13 +19,18 @@ FTV = (...args) => { /* do nothing */ }
 
 Module.register("MMM-FTV", {
   defaults: {
-    debug: true,
+    debug: false,
     imagePath: 'modules/MMM-FTV/photos',
     duration: "15s",
     pause: "10s",
     retry: "1m",
-    logo: "logo.jpg",
-    slogan: "FIXATION TECHNIQUE DE VIREUX"
+    personalized: {
+      useLogo: true,
+      logo: "logo.jpg",
+      useSlogan: true,
+      slogan: "FIXATION TECHNIQUE DE VIREUX",
+      usePortrait: false
+    }
   },
 
   start: function () {
@@ -80,14 +85,18 @@ Module.register("MMM-FTV", {
       } else {
         var contener = document.createElement('div')
         contener.id = "FTV_CONTENER"
-        var logo = document.createElement("img")
-        logo.id = "FTV_LOGO"
-        logo.src= "modules/MMM-FTV/resources/" + this.config.logo
-        contener.appendChild(logo)
-        var slogan = document.createElement("div")
-        slogan.id= "FTV_SLOGAN"
-        slogan.textContent = this.config.slogan
-        contener.appendChild(slogan)
+        if (this.config.personalized.useLogo) {
+          var logo = document.createElement("img")
+          logo.id = "FTV_LOGO"
+          logo.src= "modules/MMM-FTV/resources/" + this.config.personalized.logo
+          contener.appendChild(logo)
+        }
+        if (this.config.personalized.useSlogan) {
+          var slogan = document.createElement("div")
+          slogan.id= "FTV_SLOGAN"
+          slogan.textContent = this.config.slogan
+          contener.appendChild(slogan)
+        }
         wrapper.appendChild(contener)
       }
     }

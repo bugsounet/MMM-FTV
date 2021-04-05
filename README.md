@@ -29,7 +29,7 @@ It's used in my job for creating a slideshow of my entreprise's news
 ## Configuration
 
 ```js
-    {
+   {  
       module: "MMM-FTV",
       position: "fullscreen_above",
       configDeepMerge: true,
@@ -39,8 +39,13 @@ It's used in my job for creating a slideshow of my entreprise's news
         duration: "40s",
         pause: "15s",
         retry: "1m",
-        logo: "logo.jpg",
-        slogan: "FIXATION TECHNIQUE DE VIREUX"
+        personalized: {
+          useLogo: true,
+          logo: "logo.jpg",
+          useSlogan: true,
+          slogan: "FIXATION TECHNIQUE DE VIREUX",
+          usePortrait: false
+        }
       }
     },
 ```
@@ -52,14 +57,18 @@ It's used in my job for creating a slideshow of my entreprise's news
 * `duration`: delay to display the picture in MagicMirror
 * `pause`: delay to display main screen of MagicMirror
 * `retry`: if no picture found, delay before rescan the `imagePath` directory
+
+### `personalized: {}` field
+* `useLogo`: allow to display logo of the entreprise
 * `logo`: logo of the entreprise
+* `useSlogan`: allow to display slogan of the entreprise
 * `slogan`: slogan of the enterprise
+* `usePortrait`: allow to use portrait mode displaying
 
 ## Notes
 
-* Works only on `landscape` mode
 * Picture format must be: `bmp`,`jpg` or `png`
-* Natural size of the picture: 1920X1080
+* Natural size of the picture: 1920X1080 or 1080X1920 in portrait mode
 * If not natural size: the picture will be resized for fullscreen (no ratio) and origianl file was save in `backupBeforeResize` directory
 
 ## Support and helping

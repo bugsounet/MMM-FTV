@@ -60,24 +60,45 @@ module.exports = NodeHelper.create({
             console.log(err)
             return resolve()
           }
-        if ((value.width != 1920) || (value.height != 1080)) {
-          FTV("backup " + image.filename, "...")
-          fs.copyFileSync(image.path +"/" + image.filename, image.path +"/backupBeforeResize/" + image.filename)
-          FTV("Resizing...")
-          gm(image.path +"/" + image.filename)
-            .resize(1920,1080, "!")
-            .write(image.path +"/" + image.filename, err => {
-              if (err) {
-                FTV("error!!!" , err)
-                resolve()
-              }
-              else {
-                FTV("Resize Done:", image.filename)
-                resolve()
-              }
-            })
+        if (this.config.personalized.usePortrait) {
+          if ((value.height != 1920) || (value.width != 1080)) {
+            FTV("backup " + image.filename, "...")
+            fs.copyFileSync(image.path +"/" + image.filename, image.path +"/backupBeforeResize/" + image.filename)
+            FTV("Resizing...")
+            gm(image.path +"/" + image.filename)
+              .resize(1080,1920, "!")
+              .write(image.path +"/" + image.filename, err => {
+                if (err) {
+                  FTV("error!!!" , err)
+                  resolve()
+                }
+                else {
+                  FTV("Resize Done:", image.filename)
+                  resolve()
+                }
+              })
+          }
+          else resolve()
+        } else {
+          if ((value.width != 1920) || (value.height != 1080)) {
+            FTV("backup " + image.filename, "...")
+            fs.copyFileSync(image.path +"/" + image.filename, image.path +"/backupBeforeResize/" + image.filename)
+            FTV("Resizing...")
+            gm(image.path +"/" + image.filename)
+              .resize(1920,1080, "!")
+              .write(image.path +"/" + image.filename, err => {
+                if (err) {
+                  FTV("error!!!" , err)
+                  resolve()
+                }
+                else {
+                  FTV("Resize Done:", image.filename)
+                  resolve()
+                }
+              })
+          }
+          else resolve()
         }
-        else resolve()
       })
     })
   },
